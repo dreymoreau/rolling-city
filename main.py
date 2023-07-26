@@ -1,5 +1,7 @@
 # constant value that will change, capitals for convention
 MAX_LINES = 3
+MAX_BET = 100
+MIN_BET = 1
 
 
 # gets the deposit from the user
@@ -40,10 +42,36 @@ def get_number_of_lines():
     return lines
 
 
+def get_bet():
+    while True:
+        #  asking user what they want to bet on each line
+        amount = input("What would you like to bet on each line? $")
+        # checks if input is a positive number
+        if amount.isdigit():
+            #    assigning lines to be a digit
+            amount = int(amount)
+            # if lines is greater than equals to 1 and less than or equal to MAX_LINES break
+            if MIN_BET <= amount <= MAX_BET:
+                break
+            else:
+                # template string using the f string
+                print(f"Amount must be between {MIN_BET} - {MAX_BET}")
+        else:
+            print("Please enter a number")
+
+    return amount
+
+
 def main():
     balance = deposit()
     lines = get_number_of_lines()
-    print(balance, lines)
+    bet = get_bet()
+    total_bet = bet * lines
+
+    # the $ isnt required here like js with template strings, just a way to output dollar amount
+    print(
+        f"You are betting ${bet} on {lines} lines. Total bet is equal to: ${total_bet}"
+    )
 
 
 main()
