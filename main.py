@@ -1,7 +1,41 @@
+# generate slot machine values randomly, how many items we want in a row and how many lines we want
+import random
+
 # constant value that will change, capitals for convention
 MAX_LINES = 3
 MAX_BET = 100
 MIN_BET = 1
+
+ROWS = 3
+COLS = 3
+
+symbol_count = {"A": 2, "B": 4, "C": 6, "D": 8}
+
+
+def get_slot_machine_spin(rows, cols, symbols):
+    all_symbols = []
+    for symbol, symbol_count in symbol.items():
+        for _ in range(symbol_count):
+            all_symbols.append(symbol)
+    # define columns list
+    columns = []
+    # generate column for all columns
+    for _ in range(cols):
+        column = []
+        # copies list using slice operator to current symbols, colon ignores the fact of any changes to current_symbols wont impact all_symbols
+        current_symbols = all_symbols[:]
+        # loop through the number of values that we need to generate which is equal to number of rows in slot machine
+        for _ in range(rows):
+            # picks random value from list
+            value = random.choice(current_symbols)
+            # removes value so we dont pick it again
+            current_symbols.remove(value)
+            # pushing the value to column
+            column.append(value)
+        # add columns to columns list
+        columns.append(column)
+
+    return columns
 
 
 # gets the deposit from the user
@@ -65,8 +99,16 @@ def get_bet():
 def main():
     balance = deposit()
     lines = get_number_of_lines()
-    bet = get_bet()
-    total_bet = bet * lines
+    while True:
+        bet = get_bet()
+        total_bet = bet * lines
+
+        if total_bet > balance:
+            print(
+                f"You do not have enough to be that amount, your current balance is: ${balance}"
+            )
+        else:
+            break
 
     # the $ isnt required here like js with template strings, just a way to output dollar amount
     print(
