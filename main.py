@@ -14,7 +14,7 @@ symbol_count = {"A": 2, "B": 4, "C": 6, "D": 8}
 
 def get_slot_machine_spin(rows, cols, symbols):
     all_symbols = []
-    for symbol, symbol_count in symbol.items():
+    for symbol, symbol_count in symbols.items():
         for _ in range(symbol_count):
             all_symbols.append(symbol)
     # define columns list
@@ -36,6 +36,24 @@ def get_slot_machine_spin(rows, cols, symbols):
         columns.append(column)
 
     return columns
+
+
+# passing in columns into this function
+def print_slot_machine(columns):
+    # determine rows based off of columns and get the length of columns
+    for row in range(len(columns[0])):
+        # print first value at the first row of the column
+        # enumerate gives you the index as well as the item
+        for i, column in enumerate(columns):
+            # maximum index to access the element in the column list
+            if i != len(columns) - 1:
+                # pipe operator if its in the middle not at the end of the last column
+                # end tells the print statement to what to end the line with
+                print(column[row], end=" | ")
+            else:
+                print(column[row], end="")
+
+        print()
 
 
 # gets the deposit from the user
@@ -114,6 +132,9 @@ def main():
     print(
         f"You are betting ${bet} on {lines} lines. Total bet is equal to: ${total_bet}"
     )
+
+    slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
+    print_slot_machine(slots)
 
 
 main()
