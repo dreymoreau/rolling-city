@@ -160,6 +160,7 @@ def spin(balance):
     slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
     print_slot_machine(slots)
     winnings, winning_lines = check_winnings(slots, lines, bet, symbol_value)
+    # a way to improve this would be to have a losings output too if the winnings is 0
     print(f"You won {winnings}!")
     # splat operator * , pass every winning lines from the list
     print(f"You won on lines:", *winning_lines)
